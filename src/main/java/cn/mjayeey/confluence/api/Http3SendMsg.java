@@ -10,6 +10,7 @@ import org.apache.http.util.EntityUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONArray;
 
 //import hqr.util.Brower;
 
@@ -20,26 +21,48 @@ public class Http3SendMsg {
 	private String accessToken;
 	private String agentid;
 	
-	public Http3SendMsg(CloseableHttpClient httpclient, HttpClientContext httpClientContext,String accessToken) {
+	public Http3SendMsg(CloseableHttpClient httpclient, HttpClientContext httpClientContext,String accessToken, String agentid2) {
 		this.httpclient = httpclient;
 		this.httpClientContext = httpClientContext;
 		this.accessToken = accessToken;
-		this.agentid = "1000004";
+		this.agentid = agentid2;
 
 		//str = "{\"touser\": \"@all\",\"msgtype\": \"text\",\"agentid\": \""+agentid+"\",\"text\": {\"content\": \""+content+"\"},\"enable_duplicate_check\": \"1\",\"duplicate_check_interval\": \"3\"}";
 
 	}
 	
-	public void execute(String title, String url, String picUrl, String msg) throws Exception {
+	public void execute(String title, String url, String picUrl, String pageContent) throws Exception {
 
-		String str = "{\"touser\": \"@all\",\"msgtype\": \"mpnews\",\"agentid\": \""+agentid+"\",\"mpnews\": {\"articles\": [{\"title\": \""+ title
-				+ "\",\"content\": \"" + msg + "\",\"content_source_url\": \"" + url + "\",\"thumb_media_id\": \"" + picUrl + "\"}]},\"enable_duplicate_check\": \"1\",\"duplicate_check_interval\": \"3\"}";
+		//String str = "{\"touser\": \"@all\",\"msgtype\": \"mpnews\",\"agentid\": \""+agentid+"\",\"mpnews\": {\"articles\": [{\"title\": \""+ title
+		//		+ "\",\"content\": \"" + msg + "\",\"content_source_url\": \"" + url + "\",\"thumb_media_id\": \"" + picUrl + "\"}]},\"enable_duplicate_check\": \"1\",\"duplicate_check_interval\": \"3\"}";
 
-	    HttpPost post = new HttpPost("https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token="+accessToken);
+		JSONObject article = new JSONObject();
+		article.put("title", title);
+		article.put("content", pageContent);
+		article.put("content_source_url", url);
+		article.put("thumb_media_id", picUrl);
+	
+		JSONArray articles = new JSONArray();
+		articles.put(article);
+	
+		JSONObject mpnews = new JSONObject();
+		mpnews.put("articles", articles);
+	
+		JSONObject json = new JSONObject();
+		json.put("touser", "@all");
+		json.put("msgtype", "mpnews");
+		json.put("agentid", agentid);
+		json.put("mpnews", mpnews);
+		json.put("enable_duplicate_check", "1");
+		json.put("duplicate_check_interval", "3");
+	
+		String str = json.toString();
+		
+		HttpPost post = new HttpPost("https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token="+accessToken);
 	    post.setConfig(Brower.getRequestConfig());
 	    
-		StringEntity json = new StringEntity(str ,ContentType.APPLICATION_JSON);
-		post.setEntity(json);
+		StringEntity json2 = new StringEntity(str ,ContentType.APPLICATION_JSON);
+		post.setEntity(json2);
 		
 		cl = httpclient.execute(post,httpClientContext);
 	    

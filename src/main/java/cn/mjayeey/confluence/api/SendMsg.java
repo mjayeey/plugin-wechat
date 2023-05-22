@@ -30,7 +30,7 @@ public class SendMsg {
 				imageID = h2.execute(attachment);
 			}
 
-			Http3SendMsg h3 = new Http3SendMsg(httpclient, httpClientContext, h1.getToken());
+			Http3SendMsg h3 = new Http3SendMsg(httpclient, httpClientContext, h1.getToken(), h1.getAgentid());
 			h3.execute(title, url, imageID, msg);
 			
 			httpclient.close();

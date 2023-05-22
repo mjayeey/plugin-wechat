@@ -82,7 +82,7 @@ public class ShareToWeChatAction extends ConfluenceActionSupport implements Page
         CloseableHttpClient httpclient = Brower.getCloseableHttpClient();
         HttpClientContext httpClientContext = Brower.getHttpClientContext();
         SendMsg msg = new SendMsg(httpclient, httpClientContext);
-        msg.execute(pageTitle, fullUrl, tocStr, attachment2);
+        msg.execute(pageTitle, fullUrl, pageContent, attachment2);
         
         return SUCCESS;
     }
