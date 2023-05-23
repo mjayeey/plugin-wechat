@@ -49,17 +49,6 @@ public class ShareToWeChatAction extends ConfluenceActionSupport implements Page
 		Pattern pattern = Pattern.compile("<h\\d>[^<]+</h\\d>");
 		Matcher matcher = pattern.matcher(pageContent);
 
-		List<String> toc = new ArrayList<>();
-		while (matcher.find()) {
-			String titleTag = matcher.group();
-			String title = titleTag.replaceAll("</?h\\d>", ""); // 提取标题文本
-			int level = Integer.parseInt(titleTag.substring(2, 3)); // 提取标题级别
-			String indent = StringUtils.repeat(" ", (level-1) * 2); // 根据级别缩进
-
-			toc.add(indent + "[" + title + "]"); // 将标题信息加入目录列表
-		}
-		String tocStr = String.join("\n", toc);
-
         // 第一张图片
 		String filename = getFilenameFromImageTag(pageContent);
 		List<Attachment> attachments = page.getAttachments();
