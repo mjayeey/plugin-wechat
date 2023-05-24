@@ -18,12 +18,12 @@
         <resource type="download" name="plugin-wechat.js" location="/js/plugin-wechat.js"/>
         <resource type="download" name="images/" location="/images"/>
 
-        <context>plugin-wechat</context>
+        <context>page</context>
     </web-resource>
     
     <web-item key="share-item" section="system.content.action" weight="40">
         <label key="分享到企微" />
-        <link linkId="share-item.link">/plugins/share-action-label/share-action.action?pageId=$page.id</link>
+        <link linkId="share-item" absolute="true"/>
     </web-item>
 
     <xwork key="share-actions">
