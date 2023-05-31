@@ -19,19 +19,17 @@ public class SendMsg {
 		}
 	}
 	
-	public String execute(String title, String url, String msg, Attachment attachment) {
+	public String execute(String reviewers, String title, String url, String msg, Attachment attachment) {
 		try {
 			Http1GetToken h1 = new Http1GetToken(httpclient, httpClientContext);
 			h1.execute();
 
 			String imageID = "";
-			if(attachment != null) {
-				Http2UploadImage h2 = new Http2UploadImage(httpclient, httpClientContext, h1.getToken());
-				imageID = h2.execute(attachment);
-			}
+			Http2UploadImage h2 = new Http2UploadImage(httpclient, httpClientContext, h1.getToken());
+			imageID = h2.execute(attachment);
 
 			Http3SendMsg h3 = new Http3SendMsg(httpclient, httpClientContext, h1.getToken(), h1.getAgentid());
-			h3.execute(title, url, imageID, msg);
+			h3.execute(reviewers, title, url, imageID, msg);
 			
 			httpclient.close();
 		}

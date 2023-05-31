@@ -9,6 +9,7 @@ import com.atlassian.confluence.pages.actions.PageAware;
 import com.atlassian.confluence.pages.AbstractPage;
 import com.atlassian.confluence.util.GeneralUtil;
 import com.atlassian.confluence.pages.Attachment;
+import com.opensymphony.webwork.ServletActionContext;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,6 +37,9 @@ public class ShareToWeChatAction extends ConfluenceActionSupport implements Page
     @Override
     public String execute() {
         LOGGER.info("ShareToWeChatAction1111111");
+
+		String reviewers = ServletActionContext.getRequest().getParameter("data");
+
         // 获取title
         String pageTitle = page.getTitle();
 		// 获取页面 URL 的路径部分
@@ -71,7 +75,7 @@ public class ShareToWeChatAction extends ConfluenceActionSupport implements Page
         CloseableHttpClient httpclient = Brower.getCloseableHttpClient();
         HttpClientContext httpClientContext = Brower.getHttpClientContext();
         SendMsg msg = new SendMsg(httpclient, httpClientContext);
-        msg.execute(pageTitle, fullUrl, pageContent, attachment2);
+        msg.execute(reviewers, pageTitle, fullUrl, pageContent, attachment2);
         
         return SUCCESS;
     }

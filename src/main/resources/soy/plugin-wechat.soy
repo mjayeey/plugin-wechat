@@ -1,0 +1,113 @@
+{namespace Confluence.Templates.WeChat}
+
+/**
+ * Hidden elements used for Pull Request Reviewer Group Dialogs
+ */
+{template .dialogs}
+
+    <section id="select-group-dialog" class="aui-dialog2 aui-dialog2-large aui-layer" data-aui-blanketed="true" role="dialog" modal = "true" aria-hidden="true" style="z-index: 3000; display: none;">
+        <header class="aui-dialog2-header">
+            <h2 class="aui-dialog2-header-main">选择用户</h2>
+            <a class="aui-dialog2-header-close1">
+                <span class="aui-icon aui-icon-small aui-iconfont-close-dialog">Close</span>
+            </a>
+        </header>
+
+        <h4 class="subtext">
+            默认显示系统用户组，需要自定义组请点击临时组！
+        </h4>
+
+        <aui-spinner id="loadspinner" size="large"></aui-spinner>
+        <div id="prgroups-section">
+            <div class="aui-message aui-message-info no-groups-message" >
+                <p>There are no groups with explicit permissions on the selected target repository.</p>
+            </div>
+
+            <div id="prgroups-table-container">
+                <table id="prgroups-table" class="aui">
+                    <thead>
+                    <tr>
+                        <th id="prgroup-table-col-checkbox"></th>
+                        <th id="prgroup-table-col-avatar"></th>
+                        <th id="prgroup-table-col-groupname">组名</th>
+                        <th id="prgroup-table-col-membercount">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="display: none;"></tr>
+                    </tbody>
+                </table>
+            <br/><br/>
+            </div>
+            <footer class="aui-dialog2-footer">
+                <div class="aui-dialog2-footer-actions">
+                    <button id="select-all-prgroup-dialog-button" class="aui-button">全选</button>
+                    <button id="clear-all-prgroup-dialog-button" class="aui-button">取消选择</button>
+                    <button id="cancel-prgroup-dialog-button" class="aui-button">取消</button>
+                    <button id="select-member-dialog-button" class="aui-button aui-button-primary">临时组</button>
+                    <button id="confirm-prgroup-dialog-button" class="aui-button aui-button-primary">确定</button>
+                </div>
+            </footer>
+        </div>
+    </section>
+
+    <section id="member-info-dialog" class="aui-dialog2 aui-dialog2-medium" role="dialog" modal = "true" aria-hidden="true" style="z-index: 4000; display: none;">
+        <header class="aui-dialog2-header">
+            <h2 id="member-info-heading-text" class="aui-dialog2-header-main"></h2>
+            <a class="aui-dialog2-header-close2">
+                <span class="aui-icon aui-icon-small aui-iconfont-close-dialog">Close</span>
+            </a>
+        </header>
+        <div id="member-info-section">
+            <div class="aui-message aui-message-info no-members-info-message" >
+                <p>This group contains no members.</p>
+            </div>
+
+            <div id="member-info-table-container">
+                <table id="member-info-table" class="aui">
+                    <thead>
+                    <tr>
+                        <th id="member-info-col-avatar"></th>
+                        <th id="member-info-col-groupname">Name</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="display: none;"></tr>
+                    </tbody>
+                </table>
+                <br/><br/>
+            </div>
+            <footer class="aui-dialog2-footer">
+                <div class="aui-dialog2-footer-actions">
+                    <button id="member-info-close-dialog-button" class="aui-button aui-button-primary">Close</button>
+                </div>
+            </footer>
+        </div>
+    </section>
+
+    <section id="member-select-dialog" class="aui-dialog2 aui-dialog2-medium" role="dialog" modal = "true" aria-hidden="true" style="z-index: 5000; display: none;">
+        <header class="aui-dialog2-header">
+            <h2 id="member-select-heading-text" class="aui-dialog2-header-main"></h2>
+            <a class="aui-dialog2-header-close3">
+                <span class="aui-icon aui-icon-small aui-iconfont-close-dialog">Close</span>
+            </a>
+        </header>
+        <div>
+            <label for="inputSelector">查找并选择：</label>
+            <input type="text" id="inputSelector" placeholder="请输入用户名" />
+            <button id="addSelector">添加</button>
+            <button id="clearSelector">清除</button>
+        </div>
+        <div>
+            <select id="select2Selector" multiple style="width:100%;"></select>
+        </div>
+        <div>
+            <footer class="aui-dialog2-footer">
+                <div class="aui-dialog2-footer-actions">
+                    <button id="confirm-select-dialog-button" class="aui-button aui-button-primary">确认</button>
+                    <button id="member-select-close-dialog-button" class="aui-button aui-button-primary">Close</button>
+                </div>
+            </footer>
+        </div>
+    </section>
+{/template}

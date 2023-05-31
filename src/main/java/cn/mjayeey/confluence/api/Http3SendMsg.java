@@ -31,7 +31,7 @@ public class Http3SendMsg {
 
 	}
 	
-	public void execute(String title, String url, String picUrl, String pageContent) throws Exception {
+	public void execute(String reviewers, String title, String url, String picUrl, String pageContent) throws Exception {
 
 		//String str = "{\"touser\": \"@all\",\"msgtype\": \"mpnews\",\"agentid\": \""+agentid+"\",\"mpnews\": {\"articles\": [{\"title\": \""+ title
 		//		+ "\",\"content\": \"" + msg + "\",\"content_source_url\": \"" + url + "\",\"thumb_media_id\": \"" + picUrl + "\"}]},\"enable_duplicate_check\": \"1\",\"duplicate_check_interval\": \"3\"}";
@@ -49,7 +49,7 @@ public class Http3SendMsg {
 		mpnews.put("articles", articles);
 	
 		JSONObject json = new JSONObject();
-		json.put("touser", "@all");
+		json.put("touser", reviewers);
 		json.put("msgtype", "mpnews");
 		json.put("agentid", agentid);
 		json.put("mpnews", mpnews);
@@ -78,7 +78,7 @@ public class Http3SendMsg {
 					System.out.println("msg push to user successfully");
 				}
 				else {
-					System.out.println("failed to push the msg"+jsonObject.get("errmsg").toString());
+					System.out.println("failed to push the msg2 "+jsonObject.get("errmsg").toString());
 				}
 			}
 			catch (final JSONException e)

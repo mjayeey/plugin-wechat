@@ -22,6 +22,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.apache.commons.io.IOUtils;
 import java.io.InputStream;
+import java.io.File;
+import java.nio.file.Files;
 
 //import hqr.util.Brower;
 
@@ -43,11 +45,23 @@ public class Http2UploadImage {
 
 	    HttpPost post = new HttpPost("https://qyapi.weixin.qq.com/cgi-bin/media/upload?access_token="+accessToken+"&type=image");
 	    post.setConfig(Brower.getRequestConfig());
-		AttachmentManager attachmentManager = (AttachmentManager) ContainerManager.getComponent("attachmentManager");
-		InputStream inputStream = attachmentManager.getAttachmentData(attachment);
-		byte[] data = IOUtils.toByteArray(inputStream);
+		String fileName = null;
+		byte[] data = new byte[0];
+		if(attachment == null)
+		{
+			InputStream inputStream = getClass().getClassLoader().getResourceAsStream("images/image.jpg");
+			data = IOUtils.toByteArray(inputStream);
+			fileName = "image.jpg";
+		}
+		else
+		{
+			AttachmentManager attachmentManager = (AttachmentManager) ContainerManager.getComponent("attachmentManager");
+			InputStream inputStream = attachmentManager.getAttachmentData(attachment);
+			data = IOUtils.toByteArray(inputStream);
+			fileName = attachment.getFileName();
+		}
 		MultipartEntityBuilder entityBuilder = MultipartEntityBuilder.create()
-				.addPart("media", new ByteArrayBody(data, ContentType.create("image/jpeg"), attachment.getFileName()))
+				.addPart("media", new ByteArrayBody(data, ContentType.create("image/jpeg"), fileName))
 				.addPart("type", new StringBody("image", ContentType.DEFAULT_TEXT.withCharset("UTF-8")));
         post.setEntity(entityBuilder.build());
 	    
@@ -65,7 +79,7 @@ public class Http2UploadImage {
 					return media_id;
 				}
 				else {
-					System.out.println("failed to push the msg"+jsonObject.get("errmsg").toString());
+					System.out.println("failed to push the msg "+jsonObject.get("errmsg").toString());
 				}
 			}
 			catch (final JSONException e)
