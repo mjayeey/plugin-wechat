@@ -25,6 +25,10 @@
     margin: 15px;
 }
 
+#inputSelector {
+    margin: 40px;
+}
+
 .prgroup-icon {
     padding-top: 3px;
     width: 16px;
@@ -65,6 +69,7 @@
 #prgroups-table-container {
     max-height: 250px;
     overflow-y: scroll;
+    border-top: 1px solid #999;
 }
 
 #member-info-table-container {
@@ -76,6 +81,14 @@
     margin-right: 100px;
 }
 
+#addSelector {
+    margin-left: 10px;
+}
+
+#clearSelector {
+    margin-left: 10px;
+}
+
 #member-info-dialog {
     z-index: 4000;
 }
@@ -83,10 +96,6 @@
 .member-avatar {
     width: 24px;
     height: 24px;
-}
-
-.no-groups-message {
-    margin-bottom: 30px;
 }
 
 #inputSelector {
